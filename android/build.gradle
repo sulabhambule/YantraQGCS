@@ -113,7 +113,9 @@ android {
 
     defaultConfig {
         resConfig "en"
-        minSdkVersion qtMinSdkVersion
+        // Qt 6.11+ pre-built libQt6Core references getentropy() which requires Android API 28+.
+        // Override qtMinSdkVersion (25) to enforce the real runtime minimum.
+        minSdkVersion Math.max(qtMinSdkVersion.toInteger(), 28)
         targetSdkVersion qtTargetSdkVersion
         ndk.abiFilters = qtTargetAbiList.split(",")
 

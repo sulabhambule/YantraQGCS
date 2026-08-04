@@ -7,7 +7,7 @@
   },
   "android": {
     "platform": "36",
-    "min_sdk": "28",
+    "min_sdk": "25",
     "build_tools": "36.0.0",
     "cmdline_tools": "14742923",
     "ndk_version": "r27c",
@@ -58,10 +58,27 @@
         "videoconvert",
         "videoscale"
       ],
-      "android": ["androidmedia", "dav1d"],
-      "apple": ["applemedia", "dav1d"],
-      "windows": ["d3d", "d3d11", "d3d12", "dav1d", "nvcodec"],
-      "linux": ["nvcodec", "qsv", "va", "vulkan"]
+      "android": [
+        "androidmedia",
+        "dav1d"
+      ],
+      "apple": [
+        "applemedia",
+        "dav1d"
+      ],
+      "windows": [
+        "d3d",
+        "d3d11",
+        "d3d12",
+        "dav1d",
+        "nvcodec"
+      ],
+      "linux": [
+        "nvcodec",
+        "qsv",
+        "va",
+        "vulkan"
+      ]
     },
     "checksums": {
       "1.28.4": {
