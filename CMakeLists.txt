@@ -288,6 +288,14 @@ endif()
 list(APPEND QGC_RESOURCES
     "${CMAKE_SOURCE_DIR}/qgcresources.qrc"
 )
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    set_source_files_properties(
+        "${CMAKE_SOURCE_DIR}/qgcresources.qrc"
+        PROPERTIES
+            COMPILE_FLAGS "-O1 -fno-lto -Wa,-mbig-obj"
+            SKIP_PRECOMPILE_HEADERS ON
+    )
+endif()
 
 # ============================================================================
 # QGroundControl Executable Target

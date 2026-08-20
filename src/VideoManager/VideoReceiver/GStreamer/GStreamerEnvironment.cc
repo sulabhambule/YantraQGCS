@@ -181,7 +181,7 @@ bool _isExecutableFile(const QString& path)
     return fileInfo.exists() && fileInfo.isFile() && fileInfo.isExecutable();
 }
 
-QString _firstExistingPath(const QStringList& paths)
+[[maybe_unused]] static QString _firstExistingPath(const QStringList& paths)
 {
     for (const QString& path : paths) {
         if (QFileInfo::exists(path)) {

@@ -264,7 +264,7 @@ endfunction()
 # Enables Interprocedural Optimization (IPO/LTO) for Release builds
 # ----------------------------------------------------------------------------
 function(qgc_enable_ipo)
-    if(LINUX)
+    if(LINUX OR MINGW)
         return()
     endif()
 

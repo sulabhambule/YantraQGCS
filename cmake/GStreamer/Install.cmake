@@ -238,7 +238,7 @@ function(gstreamer_install_windows_sdk)
         SOURCE_DIR "${GSTREAMER_PLUGIN_PATH}"
         DEST_DIR "${CMAKE_INSTALL_LIBDIR}/gstreamer-1.0"
         EXTENSION "dll"
-        PREFIX "gst"
+        PREFIX "libgst"
     )
     install(
         DIRECTORY "${GStreamer_ROOT_DIR}/libexec/gstreamer-1.0/"

@@ -28,7 +28,60 @@ endif()
 # ----------------------------------------------------------------------------
 # Windows Executable Configuration
 # ----------------------------------------------------------------------------
-if(COMMAND _qt_internal_generate_win32_rc_file)
+if(MINGW)
+    # Under MinGW Makefiles, windres fails if target_sources adds .rc directly to the main executable target
+    # because CMake expands all 100+ module include paths into the windres command line (exceeding Windows' 8191 char limit).
+    # Compiling the .rc file in a standalone OBJECT library isolates windres from target include bloat.
+    set(_rc_file "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}_resource.rc")
+    set(_rc_icons "")
+    if(QGC_WINDOWS_ICON_PATH)
+        set(_rc_icons "IDI_ICON1    ICON    \"${QGC_WINDOWS_ICON_PATH}\"\n")
+    endif()
+    set(_rc_version "${CMAKE_PROJECT_VERSION}")
+    if(_rc_version MATCHES "^[0-9]+(\\.[0-9]+)*$")
+        string(REPLACE "." "," _rc_version_comma "${_rc_version}")
+    else()
+        set(_rc_version_comma "0,0,0,0")
+    endif()
+    file(GENERATE OUTPUT "${_rc_file}" CONTENT
+"#include <windows.h>
+${_rc_icons}
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION ${_rc_version_comma}
+PRODUCTVERSION ${_rc_version_comma}
+FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+    FILEFLAGS VS_FF_DEBUG
+#else
+    FILEFLAGS 0x0L
+#endif
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK \"StringFileInfo\"
+    BEGIN
+        BLOCK \"040904b0\"
+        BEGIN
+            VALUE \"CompanyName\", \"${QGC_ORG_NAME}\"
+            VALUE \"FileDescription\", \"${CMAKE_PROJECT_DESCRIPTION}\"
+            VALUE \"FileVersion\", \"${CMAKE_PROJECT_VERSION}\"
+            VALUE \"LegalCopyright\", \"${QGC_APP_COPYRIGHT}\"
+            VALUE \"OriginalFilename\", \"${CMAKE_PROJECT_NAME}.exe\"
+            VALUE \"ProductName\", \"${CMAKE_PROJECT_NAME}\"
+            VALUE \"ProductVersion\", \"${CMAKE_PROJECT_VERSION}\"
+        END
+    END
+    BLOCK \"VarFileInfo\"
+    BEGIN
+        VALUE \"Translation\", 0x0409, 1200
+    END
+END
+"
+    )
+    add_library(${CMAKE_PROJECT_NAME}_rc OBJECT "${_rc_file}")
+    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE $<TARGET_OBJECTS:${CMAKE_PROJECT_NAME}_rc>)
+elseif(COMMAND _qt_internal_generate_win32_rc_file)
     set_target_properties(${CMAKE_PROJECT_NAME}
         PROPERTIES
             QT_TARGET_COMPANY_NAME "${QGC_ORG_NAME}"
