@@ -957,7 +957,7 @@ void Vehicle::_handleGlobalPositionInt(mavlink_message_t& message)
 
     if (!_altitudeMessageAvailable) {
         //  i changed this code .
-        _altitudeRelativeFact.setRawValue(globalPositionInt.relative_alt / 1000.0 * 2.0);
+        _altitudeRelativeFact.setRawValue(globalPositionInt.relative_alt / 1000.0);
         _altitudeAMSLFact.setRawValue(globalPositionInt.alt / 1000.0);
     }
 
@@ -2688,7 +2688,7 @@ bool Vehicle::autoDisarm()
 void Vehicle::_updateDistanceHeadingHome()
 {
     if (coordinate().isValid() && homePosition().isValid()) {
-        _distanceToHomeFact.setRawValue(coordinate().distanceTo(homePosition()) * 2.0);
+        _distanceToHomeFact.setRawValue(coordinate().distanceTo(homePosition()));
         // i changed this value.
         if (_distanceToHomeFact.rawValue().toDouble() > 1.0) {
             _headingToHomeFact.setRawValue(coordinate().azimuthTo(homePosition()));

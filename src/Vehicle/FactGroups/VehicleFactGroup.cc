@@ -153,7 +153,7 @@ void VehicleFactGroup::_handleAltitude(const mavlink_message_t& message)
 
     // Data from ALTITUDE message takes precedence over gps messages
     _altitudeMessageAvailable = true;
-    altitudeRelative()->setRawValue(altitude.altitude_relative * 2.0);
+    altitudeRelative()->setRawValue(altitude.altitude_relative);
     altitudeAMSL()->setRawValue(altitude.altitude_amsl);
     // changes this files by Sulabh Ambule
 

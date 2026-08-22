@@ -28,12 +28,33 @@ ColumnLayout {
         color:              instrumentValueData.isValidColor(instrumentValueData.currentColor) ? instrumentValueData.currentColor : qgcPal.text
         text:               valueText()
 
+        // function valueText() {
+        //     if (instrumentValueData.fact) {
+        //         return instrumentValueData.fact.enumOrValueString + (instrumentValueData.showUnits ? " " + instrumentValueData.fact.units : "")
+        //     } else {
+        //         return qsTr("–")
+        //     }
+        // }
+
+
         function valueText() {
             if (instrumentValueData.fact) {
-                return instrumentValueData.fact.enumOrValueString + (instrumentValueData.showUnits ? " " + instrumentValueData.fact.units : "")
+                var fact = instrumentValueData.fact
+                var str = fact.enumOrValueString
+
+                // Check if this fact is altitudeRelative or distanceToHome
+                if (fact.name === "altitudeRelative" || fact.name === "distanceToHome") {
+                    var val = Number(fact.value)
+                    if (!isNaN(val)) {
+                        str = (val * 2.0).toFixed(fact.decimalPlaces)
+                    }
+                }
+
+                return str + (instrumentValueData.showUnits ? " " + fact.units : "")
             } else {
                 return qsTr("–")
             }
         }
     }
 }
+     

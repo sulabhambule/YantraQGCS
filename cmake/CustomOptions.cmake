@@ -114,8 +114,7 @@ option(QGC_NO_SERIAL_LINK "Disable serial port communication" OFF)
 # Video Streaming Options
 # ============================================================================
 
-option(QGC_ENABLE_GST_VIDEOSTREAMING "Enable GStreamer video backend" ON)
-set(GStreamer_ROOT_DIR "C:/Users/sulab/AppData/Local/Programs/gstreamer/1.0/mingw_x86_64" CACHE PATH "GStreamer MinGW Directory")
+set(QGC_ENABLE_GST_VIDEOSTREAMING OFF CACHE BOOL "Enable GStreamer video backend" FORCE)
 
 # ============================================================================
 # MAVLink Configuration
