@@ -715,9 +715,8 @@ Item {
                         Layout.preferredHeight: _landscape ? 10 : 14
                     }
 
-                    // ----------------------------------------------------------
                     // Sign In button
-                    // ----------------------------------------------------------
+                    // ths codes are updated from which generated from the agentic ai.
 
                     Rectangle {
                         Layout.fillWidth: true
