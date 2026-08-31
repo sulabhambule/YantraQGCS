@@ -11,12 +11,17 @@ set_source_files_properties(MainWindow/MainWindow.qml
     PROPERTIES
         QT_RESOURCE_ALIAS MainWindow.qml
 )
+set_source_files_properties(MainWindow/LoginPage.qml
+    PROPERTIES
+        QT_RESOURCE_ALIAS LoginPage.qml
+)
 
 qt_add_qml_module(QGroundControlModule
     URI QGroundControl
     VERSION 1.0
     RESOURCE_PREFIX /qml
     QML_FILES
+        MainWindow/LoginPage.qml
         MainWindow/MainWindow.qml
         MainWindow/MainWindowSavedState.qml
     IMPORTS
@@ -33,6 +38,7 @@ endif()
 # ============================================================================
 
 # Core subsystems
+add_subdirectory(Auth)
 add_subdirectory(ADSB)
 add_subdirectory(AnalyzeView)
 add_subdirectory(API)

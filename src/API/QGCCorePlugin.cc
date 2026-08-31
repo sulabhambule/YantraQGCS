@@ -33,6 +33,7 @@
 #include "BlankPlanCreator.h"
 #include "ComplexMissionItem.h"
 #include "PlanMasterController.h"
+#include "AuthManager.h"
 
 #ifdef QGC_CUSTOM_BUILD
 #include CUSTOMHEADER
@@ -300,6 +301,8 @@ QQmlApplicationEngine *QGCCorePlugin::createQmlApplicationEngine(QObject *parent
     QQmlApplicationEngine *const qmlEngine = new QQmlApplicationEngine(parent);
     qmlEngine->addImportPath(QStringLiteral("qrc:/qml"));
     qmlEngine->rootContext()->setContextProperty(QStringLiteral("joystickManager"), JoystickManager::instance());
+    // Register the authentication manager so QML can call authManager.login().
+    qmlEngine->rootContext()->setContextProperty(QStringLiteral("authManager"), new AuthManager(qmlEngine));
     return qmlEngine;
 }
 
