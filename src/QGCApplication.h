@@ -13,6 +13,12 @@ namespace QGCCommandLineParser {
     struct CommandLineParseResult;
 }
 
+
+// 
+
+
+
+
 class QQmlApplicationEngine;
 class QQuickWindow;
 class QGCImageProvider;

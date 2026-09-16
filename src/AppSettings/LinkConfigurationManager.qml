@@ -166,7 +166,10 @@ SettingsGroupLayout {
                     onActivated: (index) => {
                         if (index !== editingConfig.linkType) {
                             var name = nameField.text
+                            var oldConfig = editingConfig
                             editingConfig = _linkManager.createConfiguration(index, name)
+                            // Cancel (delete) the discarded temporary config
+                            _linkManager.cancelConfigurationEditing(oldConfig)
                         }
                     }
                 }
@@ -174,13 +177,20 @@ SettingsGroupLayout {
                 Loader {
                     id:     linkSettingsLoader
                     source: editingConfig && editingConfig.settingsURL ? editingConfig.settingsURL : ""
-                    asynchronous: true
+                    asynchronous: false
 
                     property var subEditConfig:         editingConfig
                     property int _firstColumnWidth:     ScreenTools.defaultFontPixelWidth * 12
                     property int _secondColumnWidth:    ScreenTools.defaultFontPixelWidth * 30
                     property int _rowSpacing:           ScreenTools.defaultFontPixelHeight / 2
                     property int _colSpacing:           ScreenTools.defaultFontPixelWidth / 2
+
+                    // Keep subEditConfig in sync when editingConfig is replaced after a type change
+                    Binding {
+                        target:   linkSettingsLoader
+                        property: "subEditConfig"
+                        value:    editingConfig
+                    }
 
                     onStatusChanged: {
                         if (status === Loader.Error) {

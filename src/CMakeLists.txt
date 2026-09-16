@@ -15,12 +15,17 @@ set_source_files_properties(MainWindow/LoginPage.qml
     PROPERTIES
         QT_RESOURCE_ALIAS LoginPage.qml
 )
+set_source_files_properties(MainWindow/CommLinkSetupDialog.qml
+    PROPERTIES
+        QT_RESOURCE_ALIAS CommLinkSetupDialog.qml
+) 
 
 qt_add_qml_module(QGroundControlModule
     URI QGroundControl
     VERSION 1.0
     RESOURCE_PREFIX /qml
     QML_FILES
+        MainWindow/CommLinkSetupDialog.qml
         MainWindow/LoginPage.qml
         MainWindow/MainWindow.qml
         MainWindow/MainWindowSavedState.qml

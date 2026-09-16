@@ -838,7 +838,17 @@ ApplicationWindow {
         }
     }
 
-    // Login overlay covering the entire window until authentication succeeds
+    // Factory that opens the comm-link setup dialog automatically after login
+    QGCPopupDialogFactory {
+        id:              commLinkSetupFactory
+        dialogComponent: commLinkSetupDialogComponent
+    }
+
+    Component {
+        id: commLinkSetupDialogComponent
+        CommLinkSetupDialog {}
+    }
+
     LoginPage {
         id: loginOverlay
 
@@ -851,7 +861,13 @@ ApplicationWindow {
 
             Qt.inputMethod.hide();
 
+            // Show the comm-link setup dialog so users can add/connect links right away
+            commLinkSetupFactory.open();
+
             firstRunPromptManager.nextPrompt();
         }
     }
 }
+
+
+

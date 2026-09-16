@@ -744,7 +744,6 @@ Item {
                                 duration: 100
                             }
                         }
-
                         // Spinner
                         Row {
                             anchors.centerIn: parent

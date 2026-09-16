@@ -91,7 +91,7 @@ TextField {
         implicitHeight: ScreenTools.implicitTextFieldHeight
 
         RowLayout {
-            id:                     unitsHelpLayout
+            id:                     unitsHelpLayout 
             anchors.top:            parent.top
             anchors.bottom:         parent.bottom
             anchors.right:          parent.right
