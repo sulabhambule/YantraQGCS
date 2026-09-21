@@ -74,7 +74,7 @@ Item {
     }
 
     // =========================================================================
-    // Background — full-bleed dark gradient
+    // Background — full-bleed dark gradient (Airyaan dark charcoal/violet theme)
     // =========================================================================
     Rectangle {
         anchors.fill: parent
@@ -83,12 +83,12 @@ Item {
             orientation: Gradient.Vertical
 
             GradientStop {
-                color: "#070f1f"
+                color: "#120e17"
                 position: 0.0
             }
 
             GradientStop {
-                color: "#0d1f3c"
+                color: "#1a1322"
                 position: 1.0
             }
         }
@@ -103,7 +103,7 @@ Item {
     // Subtle grid
     Canvas {
         anchors.fill: parent
-        opacity: 0.035
+        opacity: 0.025
 
         onPaint: {
             const ctx = getContext("2d");
@@ -122,7 +122,7 @@ Item {
         }
     }
 
-    // Ambient glow — top-left
+    // Ambient glow — top-left (Vibrant Crimson Red)
     Rectangle {
         color: "transparent"
         height: width
@@ -133,15 +133,15 @@ Item {
 
         Rectangle {
             anchors.centerIn: parent
-            color: "#1565C0"
+            color: "#E62E4D"
             height: width
-            opacity: 0.14
+            opacity: 0.12
             radius: width
             width: parent.width * 0.6
         }
     }
 
-    // Ambient glow — bottom-right
+    // Ambient glow — bottom-right (Deep Wine Red)
     Rectangle {
         color: "transparent"
         height: width
@@ -152,7 +152,7 @@ Item {
 
         Rectangle {
             anchors.centerIn: parent
-            color: "#0d47a1"
+            color: "#8B152B"
             height: width
             opacity: 0.10
             radius: width
@@ -171,7 +171,7 @@ Item {
         property real implicitFormHeight: formFlickable.contentHeight + 48
 
         anchors.centerIn: parent
-        height: _landscape ? Math.min(parent.height * 0.90, 420) : implicitFormHeight + 48
+        height: _landscape ? Math.min(parent.height * 0.90, 440) : implicitFormHeight + 48
         width: _landscape ? Math.min(parent.width * 0.92, 860) : Math.min(parent.width * 0.92, 420)
 
         // =====================================================================
@@ -181,29 +181,45 @@ Item {
             id: mainPanel
 
             anchors.fill: parent
-            border.color: "#1e3a6e"
+            border.color: "#2f253b"
             border.width: 1
-            color: "#0f1f3a"
+            color: "#1b1524"
             radius: 16
 
-            // Single blue accent top-line for the whole card
+            // Single red accent top-line for the whole card
             Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
-                color: "#2979FF"
                 height: 2
-                opacity: 0.6
+                opacity: 0.85
                 radius: 1
                 width: parent.width * 0.55
+
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+
+                    GradientStop {
+                        color: "#E62E4D"
+                        position: 0.0
+                    }
+
+                    GradientStop {
+                        color: "#FF4D6D"
+                        position: 0.5
+                    }
+
+                    GradientStop {
+                        color: "#E62E4D"
+                        position: 1.0
+                    }
+                }
             }
 
-            // =================================================================
             // BRAND CONTENT (landscape only — left side, no background of its own)
-            // =================================================================
             Item {
                 id: brandColumn
 
-                anchors.bottom: parent.bottom
+                anchors.bottom: bottomBanner.top
                 anchors.left: parent.left
                 anchors.top: parent.top
                 visible: _landscape
@@ -214,32 +230,14 @@ Item {
                     spacing: 0
                     width: parent.width * 0.8
 
-                    // Logo (reduced size)
-                    Rectangle {
+                    // Logo — direct red icon without background circle or border line
+                    Image {
                         Layout.alignment: Qt.AlignHCenter
-                        border.color: "#2979FF"
-                        border.width: 1.5
-                        color: "#1565C0"
-                        height: 74
-                        radius: 38
-                        width: 74
-
-                        Image {
-                            anchors.fill: parent
-                            anchors.margins: 7
-                            fillMode: Image.PreserveAspectFit
-                            smooth: true
-                            source: "qrc:/qmlimages/YantraLogo.png"
-                        }
-
-                        Text {
-                            anchors.centerIn: parent
-                            color: "white"
-                            font.bold: true
-                            font.pixelSize: 30
-                            text: "Y"
-                            visible: false  // shown only if image fails — Image covers it
-                        }
+                        Layout.preferredHeight: 68
+                        Layout.preferredWidth: 68
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+                        source: "qrc:/qmlimages/YantraLogo.png"
                     }
 
                     Item {
@@ -262,7 +260,7 @@ Item {
 
                     Text {
                         Layout.alignment: Qt.AlignHCenter
-                        color: "#5577aa"
+                        color: "#9d93a8"
                         font.family: "Inter, Roboto, Arial, sans-serif"
                         font.letterSpacing: 0.5
                         font.pixelSize: 11
@@ -277,7 +275,7 @@ Item {
             Item {
                 id: formPanel
 
-                anchors.bottom: parent.bottom
+                anchors.bottom: bottomBanner.top
                 anchors.right: parent.right
                 anchors.top: parent.top
                 width: _landscape ? parent.width - brandColumn.width : parent.width
@@ -300,7 +298,7 @@ Item {
 
                     anchors {
                         fill: parent
-                        margins: 24
+                        margins: 20
                     }
 
                     ColumnLayout {
@@ -317,16 +315,16 @@ Item {
 
                             Rectangle {
                                 Layout.alignment: Qt.AlignHCenter
-                                border.color: "#2979FF"
+                                border.color: "#E62E4D"
                                 border.width: 1.5
-                                color: "#1565C0"
+                                color: "#251c2e"
                                 height: 64
                                 radius: 32
                                 width: 64
 
                                 Text {
                                     anchors.centerIn: parent
-                                    color: "white"
+                                    color: "#E62E4D"
                                     font.bold: true
                                     font.pixelSize: 26
                                     text: "Y"
@@ -353,7 +351,7 @@ Item {
 
                             Text {
                                 Layout.alignment: Qt.AlignHCenter
-                                color: "#8899aa"
+                                color: "#9d93a8"
                                 font.family: "Inter, Roboto, Arial, sans-serif"
                                 font.pixelSize: 12
                                 text: qsTr("Sign in to continue")
@@ -375,7 +373,7 @@ Item {
                                 font.bold: true
                                 font.family: "Inter, Roboto, Arial, sans-serif"
                                 font.pixelSize: 18
-                                text: qsTr("Welcome back")
+                                text: qsTr("Welcome Back")
                             }
 
                             Item {
@@ -383,27 +381,37 @@ Item {
                             }
 
                             Text {
-                                color: "#8899aa"
+                                color: "#9d93a8"
                                 font.family: "Inter, Roboto, Arial, sans-serif"
                                 font.pixelSize: 11
-                                text: qsTr("Sign in to continue")
+                                text: qsTr("Sign in to authenticate operator session")
                             }
 
                             Item {
-                                Layout.preferredHeight: 16
+                                Layout.preferredHeight: 14
                             }
                         }
 
                         // ----------------------------------------------------------
                         // Username
                         // ----------------------------------------------------------
-                        Text {
-                            color: "#5577aa"
-                            font.bold: true
-                            font.family: "Inter, Roboto, Arial, sans-serif"
-                            font.letterSpacing: 1.2
-                            font.pixelSize: 10
-                            text: qsTr("USERNAME")
+                        RowLayout {
+                            spacing: 6
+
+                            Text {
+                                color: "#E62E4D"
+                                font.pixelSize: 9
+                                text: "●"
+                            }
+
+                            Text {
+                                color: "#9d93a8"
+                                font.bold: true
+                                font.family: "Inter, Roboto, Arial, sans-serif"
+                                font.letterSpacing: 1.2
+                                font.pixelSize: 10
+                                text: qsTr("USERNAME")
+                            }
                         }
 
                         Item {
@@ -412,9 +420,9 @@ Item {
 
                         Rectangle {
                             Layout.fillWidth: true
-                            border.color: usernameField.activeFocus ? "#2979FF" : "#1e3a6e"
+                            border.color: usernameField.activeFocus ? "#E62E4D" : "#2f253b"
                             border.width: usernameField.activeFocus ? 1.5 : 1
-                            color: usernameField.activeFocus ? "#1a2f55" : "#162040"
+                            color: usernameField.activeFocus ? "#211828" : "#130f1a"
                             height: _landscape ? 38 : 44
                             radius: 8
 
@@ -441,7 +449,7 @@ Item {
                                 font.pixelSize: _landscape ? 13 : 14
                                 leftPadding: 12
                                 placeholderText: qsTr("Enter username")
-                                placeholderTextColor: "#445566"
+                                placeholderTextColor: "#6d6278"
                                 rightPadding: 12
 
                                 Keys.onEnterPressed: if (text.length > 0)
@@ -458,13 +466,23 @@ Item {
                         // ----------------------------------------------------------
                         // Password
                         // ----------------------------------------------------------
-                        Text {
-                            color: "#5577aa"
-                            font.bold: true
-                            font.family: "Inter, Roboto, Arial, sans-serif"
-                            font.letterSpacing: 1.2
-                            font.pixelSize: 10
-                            text: qsTr("PASSWORD")
+                        RowLayout {
+                            spacing: 6
+
+                            Text {
+                                color: "#E62E4D"
+                                font.pixelSize: 9
+                                text: "●"
+                            }
+
+                            Text {
+                                color: "#9d93a8"
+                                font.bold: true
+                                font.family: "Inter, Roboto, Arial, sans-serif"
+                                font.letterSpacing: 1.2
+                                font.pixelSize: 10
+                                text: qsTr("PASSWORD")
+                            }
                         }
 
                         Item {
@@ -473,9 +491,9 @@ Item {
 
                         Rectangle {
                             Layout.fillWidth: true
-                            border.color: passwordField.activeFocus ? "#2979FF" : "#1e3a6e"
+                            border.color: passwordField.activeFocus ? "#E62E4D" : "#2f253b"
                             border.width: passwordField.activeFocus ? 1.5 : 1
-                            color: passwordField.activeFocus ? "#1a2f55" : "#162040"
+                            color: passwordField.activeFocus ? "#211828" : "#130f1a"
                             height: _landscape ? 38 : 44
                             radius: 8
 
@@ -503,7 +521,7 @@ Item {
                                 font.pixelSize: _landscape ? 13 : 14
                                 leftPadding: 12
                                 placeholderText: qsTr("Enter password")
-                                placeholderTextColor: "#445566"
+                                placeholderTextColor: "#6d6278"
                                 rightPadding: 12
 
                                 Keys.onEnterPressed: if (loginPage._canLogin())
@@ -520,7 +538,7 @@ Item {
                         // Forgot password link
                         Text {
                             Layout.alignment: Qt.AlignRight
-                            color: forgotMA.containsMouse ? "#5599ff" : "#2979FF"
+                            color: forgotMA.containsMouse ? "#FF5C77" : "#E62E4D"
                             font.family: "Inter, Roboto, Arial, sans-serif"
                             font.pixelSize: 11
                             font.underline: forgotMA.containsMouse
@@ -557,10 +575,10 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: loginPage._showForgotInfo ? (forgotInfoContent.implicitHeight + 16) : 0
-                            border.color: "#1e3a6e"
+                            border.color: "#4a1c27"
                             border.width: 1
                             clip: true
-                            color: "#132a4d"
+                            color: "#241018"
                             opacity: loginPage._showForgotInfo ? 1.0 : 0.0
                             radius: 7
 
@@ -589,14 +607,14 @@ Item {
                                 }
 
                                 Text {
-                                    color: "#2979FF"
+                                    color: "#E62E4D"
                                     font.pixelSize: 13
                                     text: "ℹ"
                                 }
 
                                 Text {
                                     Layout.fillWidth: true
-                                    color: "#9db6dd"
+                                    color: "#c9b6be"
                                     font.family: "Inter, Roboto, Arial, sans-serif"
                                     font.pixelSize: _landscape ? 11 : 12
                                     text: qsTr("Please contact the manufacturer for password reset.")
@@ -606,7 +624,7 @@ Item {
                         }
 
                         Item {
-                            Layout.preferredHeight: _landscape ? 10 : 14
+                            Layout.preferredHeight: _landscape ? 8 : 12
                         }
 
                         // ----------------------------------------------------------
@@ -615,10 +633,10 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: loginPage._errorText.length > 0 ? (errorContent.implicitHeight + 16) : 0
-                            border.color: "#c0392b"
+                            border.color: "#7a1f2e"
                             border.width: 1
                             clip: true
-                            color: "#1e0808"
+                            color: "#261017"
                             opacity: loginPage._errorText.length > 0 ? 1.0 : 0.0
                             radius: 7
 
@@ -647,14 +665,14 @@ Item {
                                 }
 
                                 Text {
-                                    color: "#e74c3c"
+                                    color: "#FF4D6D"
                                     font.pixelSize: 13
                                     text: "⚠"
                                 }
 
                                 Text {
                                     Layout.fillWidth: true
-                                    color: "#ff8080"
+                                    color: "#ffb3c1"
                                     font.family: "Inter, Roboto, Arial, sans-serif"
                                     font.pixelSize: _landscape ? 11 : 12
                                     text: loginPage._errorText
@@ -664,26 +682,26 @@ Item {
                         }
 
                         Item {
-                            Layout.preferredHeight: _landscape ? 10 : 14
+                            Layout.preferredHeight: _landscape ? 8 : 12
                         }
 
-                        // Sign In button
+                        // Sign In button (Red crimson gradient matching bottom banner of Airyaan image)
                         Rectangle {
                             Layout.fillWidth: true
                             height: _landscape ? 40 : 46
-                            opacity: loginBtnMA.containsMouse && !loginBtnMA.pressed ? 0.90 : 1.0
+                            opacity: loginBtnMA.containsMouse && !loginBtnMA.pressed ? 0.92 : 1.0
                             radius: 8
 
                             gradient: Gradient {
                                 orientation: Gradient.Horizontal
 
                                 GradientStop {
-                                    color: (loginPage._canLogin() || loginPage._busy) ? (loginBtnMA.pressed ? "#1253c4" : "#1565C0") : "#1a2a44"
+                                    color: (loginPage._canLogin() || loginPage._busy) ? (loginBtnMA.pressed ? "#A01532" : "#E62E4D") : "#2a1a22"
                                     position: 0.0
                                 }
 
                                 GradientStop {
-                                    color: (loginPage._canLogin() || loginPage._busy) ? (loginBtnMA.pressed ? "#1976D2" : "#2196F3") : "#1e3050"
+                                    color: (loginPage._canLogin() || loginPage._busy) ? (loginBtnMA.pressed ? "#7A0F24" : "#B81631") : "#361f2a"
                                     position: 1.0
                                 }
                             }
@@ -695,23 +713,12 @@ Item {
 
                             Text {
                                 anchors.centerIn: parent
-                                color: loginPage._canLogin() ? "white" : "#445566"
+                                color: loginPage._canLogin() ? "white" : "#6d6278"
                                 font.bold: true
                                 font.family: "Inter, Roboto, Arial, sans-serif"
                                 font.letterSpacing: 1.5
                                 font.pixelSize: _landscape ? 13 : 14
-                                text: qsTr("SIGN IN")
-                            }
-
-                            Text {
-                                anchors.centerIn: parent
-                                color: loginPage._canLogin() ? "white" : "#445566"
-                                font.bold: true
-                                font.family: "Inter, Roboto, Arial, sans-serif"
-                                font.letterSpacing: 1.5
-                                font.pixelSize: _landscape ? 13 : 14
-                                text: qsTr("SIGN IN")
-                                visible: !loginPage._busy
+                                text: loginPage._busy ? qsTr("Signing in...") : qsTr("SIGN IN")
                             }
 
                             MouseArea {
@@ -727,30 +734,38 @@ Item {
                         }
 
                         Item {
-                            Layout.preferredHeight: _landscape ? 6 : 20
+                            Layout.preferredHeight: _landscape ? 6 : 14
                         }
                     }
                 }
             }
 
-            // "ALWAYS READY" tag — centred under the WHOLE card, not just one side
-            Text {
+            // Bottom status text — centered "ALWAYS READY" without red background strip
+            Item {
+                id: bottomBanner
+
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 16
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: '#f62c2c'
-                font.bold: true
-                font.family: "Inter, Roboto, Arial, sans-serif"
-                font.letterSpacing: 3.5
-                font.pixelSize: 18
-                opacity: 0.55
-                text: qsTr("ALWAYS READY")
+                anchors.bottomMargin: 12
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: 24
+
+                Text {
+                    anchors.centerIn: parent
+                    color: '#c51414'
+                    font.bold: true
+                    font.family: "Inter, Roboto, Arial, sans-serif"
+                    font.letterSpacing: 2.0
+                    font.pixelSize: 16
+                    text: qsTr("ALWAYS READY")
+                }
             }
 
+            // Busy Overlay
             Rectangle {
                 anchors.fill: parent
-                color: "#050d1c"
-                opacity: loginPage._busy ? 0.78 : 0.0
+                color: "#120e17"
+                opacity: loginPage._busy ? 0.85 : 0.0
                 radius: parent.radius
                 visible: opacity > 0
                 z: 100
